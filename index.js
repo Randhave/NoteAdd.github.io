@@ -1,34 +1,33 @@
 console.log("Hello friends");
-showNotes();        //here we are to call shwoNotes functions , for showing all notes startingly
-
-let addBtn = document.getElementById('addBtn');        //grap addNote button by getElementById
+showNotes();      
+let addBtn = document.getElementById('addBtn');     
 addBtn.addEventListener("click", () => {
-    //when user click on "Add note " button bellow functions are run
+   
     let addTxt = document.getElementById("addTxt");
     let notes = localStorage.getItem("notes");
     if (notes == null) {
-        notesObj = [];     //if notes are not available , then created notesObj empty array
+        notesObj = [];     
     }
     else {
-        notesObj = JSON.parse(notes);       // notes are available in localStorage it push in notesObj Empty Arry
+        notesObj = JSON.parse(notes);     
     }
     notesObj.push(addTxt.value);
     localStorage.setItem("notes", JSON.stringify(notesObj));
     addTxt.value = "";
-    // console.log(notes);
-    showNotes();    // after pushiing notes in notesObj then, it show notes throgh showNotes functions
+    
+    showNotes();     
 });
 
-function showNotes() { //This are the showNotes functions showing Your all notes
+function showNotes() {  
 
-    let notes = localStorage.getItem("notes"); //it means any notes are present in localstorage  get this and store "notes"
+    let notes = localStorage.getItem("notes");  
     if (notes == null) {
         notesObj = [];
     }
     else {
         notesObj = JSON.parse(notes);
     }
-    let html = "";  //intially we are intilise empty screen , and added newly notes 
+    let html = "";  
     notesObj.forEach(function (element, index) {
         html += `
                     <div class="noteCard my-3 mx-3 card" style="width: 18rem;">
@@ -48,11 +47,9 @@ function showNotes() { //This are the showNotes functions showing Your all notes
         showNOTE.innerHTML = `Nothing to show  ! Make your notes with click on "Add note" `
     }
 }
-
-// 
+ 
 function deleteNote(index) {
-    // console.log("deleting note is fired", index);
-
+    
     let notes = localStorage.getItem("notes");
     if (notes == null) {
         notesObj = [];
@@ -60,25 +57,22 @@ function deleteNote(index) {
     else {
         notesObj = JSON.parse(notes);
     }
-    notesObj.splice(index, 1);  //splice function are delete given frist argument and second argumetn is counting to delete how many items are delete
+    notesObj.splice(index, 1);   
     localStorage.setItem("notes", JSON.stringify(notesObj));
     showNotes();
 }
 
 
-//   HERE FILTER FUNCTION ->  if you input in input search baar it matches your all notes, if matches any of then it  show else hide all notes if not matches
+ 
 let search = document.getElementById("searchTxt");
 search.addEventListener("input", () => {
 
     let inputVal = search.value.toLowerCase();
-    // console.log('INPUT event is fired', inputVal);
-
-    let noteCards = document.getElementsByClassName("noteCard");      // noteCards class present in above html templete
-    Array.from(noteCards).forEach(function (element) {   //  Array.from ka mtlb ki jo notes he vo array me store he object ke form me 
-                                                         //  .forEach ka mtlb jo function diya he usme vo run hoga sabhi object ke element ke liye
-
+  
+    let noteCards = document.getElementsByClassName("noteCard");       
+    Array.from(noteCards).forEach(function (element) {    
         let cardTxt = element.getElementsByTagName("p")[0].innerText;
-        if (cardTxt.includes(inputVal)) {         //here its checked , jo apako search krna he vo inputVal me moujud he ya nhi
+        if (cardTxt.includes(inputVal)) {         
             element.style.display = "block";
         }
         else {
@@ -89,6 +83,4 @@ search.addEventListener("input", () => {
 
 });
 
-//In above program if else condition are common in all function , beacuae it check notes are available or not 
-//if avaiable notes then code run 
-//if not available then "notesObj" Empty array are reamin still 
+ 
